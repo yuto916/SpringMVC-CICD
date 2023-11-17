@@ -38,3 +38,5 @@ public class BookService {
         books.removeIf(book -> book.getId().equals(id));
     }
 }
+
+// CICD testing:
