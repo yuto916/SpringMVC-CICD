@@ -35,6 +35,7 @@ To get started with the BookController project, follow these steps:
 
 ## Usage
 
+Run the app
 
 ## Contributing
 
