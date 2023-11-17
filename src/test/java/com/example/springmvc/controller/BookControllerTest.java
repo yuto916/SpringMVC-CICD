@@ -65,8 +65,7 @@ class BookControllerTest {
 
     @Test
     void addBook() throws Exception {
-        Book newBook = new Book(1L, "New Title", "New Author");
-        Book savedBook = new Book(1L, "New Title", "New Author");
+        Book savedBook = new Book(0L, "New Title", "New Author");
         when(bookService.addBook(any(Book.class))).thenReturn(savedBook);
 
         mockMvc.perform(post("/api/books")
