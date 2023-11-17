@@ -1,48 +1,43 @@
 package com.example.springmvc.controller;
-
 import com.example.springmvc.model.Book;
+import com.example.springmvc.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
+    private final BookService bookService;
 
-    private final List<Book> books = new ArrayList<>();
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping
     public List<Book> getAllBooks() {
-        return books;
+        return bookService.getAllBooks();
     }
 
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable Long id) {
-        return books.stream()
-                .filter(book -> book.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+        return bookService.getBookById(id);
     }
 
     @PostMapping
     public Book addBook(@RequestBody Book book) {
-        book.setId((long) (books.size() + 1));
-        books.add(book);
-        return book;
+        return bookService.addBook(book);
     }
 
     @PutMapping("/{id}")
     public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
-        Book existingBook = getBookById(id);
-        if (existingBook != null) {
-            existingBook.setTitle(updatedBook.getTitle());
-            existingBook.setAuthor(updatedBook.getAuthor());
-        }
-        return existingBook;
+        return bookService.updateBook(id, updatedBook);
     }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable Long id) {
-        books.removeIf(book -> book.getId().equals(id));
+        bookService.deleteBook(id);
     }
 }
