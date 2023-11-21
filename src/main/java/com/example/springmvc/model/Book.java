@@ -33,7 +33,7 @@ public class Book {
 
     }
     public Book(Long id, String title, String author) {
-        this.id = id+1;
+        this.id = id;
         this.title = title;
         this.author = author;
     }
